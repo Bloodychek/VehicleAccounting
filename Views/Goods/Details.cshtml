@@ -1,0 +1,30 @@
+﻿@model VehicleAccounting.Models.Goods
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Подробнее</h1>
+
+<div>
+    <h4>Товары</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.applicationId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Application.applicationNumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.typeOfGoodsId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TypeOfGood.nameOfGoods)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Редактировать</a> |
+    <a asp-action="Index">На главную</a>
+</div>

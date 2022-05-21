@@ -1,0 +1,51 @@
+﻿@model VehicleAccounting.Models.Transport
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Удалить</h1>
+
+<h3>Вы уверенны что хотите удалить эту запись?</h3>
+<div>
+    <h4>Транспорт</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.tractor)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.tractor)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.tractorBrand)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.tractorBrand)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.semitrailer)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.semitrailer)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.semi_trailerBrand)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.semi_trailerBrand)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.driverFIO)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.driverFIO)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Удалить" class="btn btn-danger" /> |
+        <a asp-action="Index">На главную</a>
+    </form>
+</div>

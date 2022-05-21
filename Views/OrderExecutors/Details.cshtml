@@ -1,0 +1,30 @@
+﻿@model VehicleAccounting.Models.OrderExecutor
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Подробнее</h1>
+
+<div>
+    <h4>Исполнители заказа</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.orderExecutorName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.orderExecutorName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.orderExecutorPhone)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.orderExecutorPhone)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Редактировать</a> |
+    <a asp-action="Index">На главную</a>
+</div>

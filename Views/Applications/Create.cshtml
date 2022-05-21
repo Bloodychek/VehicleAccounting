@@ -1,0 +1,68 @@
+﻿@model VehicleAccounting.ViewModels.ApplicationsCreateAndAnyViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Создание новой записи</h1>
+
+<h4>Заявка</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="uploadDate" class="control-label"></label>
+                <input asp-for="uploadDate" class="form-control" />
+                <span asp-validation-for="uploadDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="unloadingDate" class="control-label"></label>
+                <input asp-for="unloadingDate" class="form-control" />
+                <span asp-validation-for="unloadingDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="applicationNumber" class="control-label"></label>
+                <input asp-for="applicationNumber" class="form-control" />
+                <span asp-validation-for="applicationNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="routeId" class="control-label"></label>
+                <select asp-for="routeId" class="form-control"  asp-items="ViewBag.Routes"></select>
+                <span asp-validation-for="routeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="transportId" class="control-label"></label>
+                <select asp-for="transportId" class="form-control" asp-items="ViewBag.Transports"></select>
+                <span asp-validation-for="transportId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="treatyId" class="control-label"></label>
+                <select asp-for="treatyId" class="form-control" asp-items="ViewBag.Treaties"></select>
+                <span asp-validation-for="treatyId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="customerId" class="control-label"></label>
+                <select asp-for="customerId" class="form-control" asp-items="ViewBag.Customers"></select>
+                <span asp-validation-for="customerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="orderExecutorId" class="control-label"></label>
+                <select asp-for="orderExecutorId" class="form-control" asp-items="ViewBag.OrderExecutors"></select>
+                <span asp-validation-for="orderExecutorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">На главную</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

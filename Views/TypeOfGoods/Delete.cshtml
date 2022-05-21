@@ -1,0 +1,27 @@
+﻿@model VehicleAccounting.Models.TypeOfGoods
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Удалить</h1>
+
+<h3>Вы уверенны что хотите удалить эту запись?</h3>
+<div>
+    <h4>Тип товаров</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.nameOfGoods)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.nameOfGoods)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Удалить" class="btn btn-danger" /> |
+        <a asp-action="Index">На главную</a>
+    </form>
+</div>

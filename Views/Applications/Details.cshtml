@@ -1,0 +1,66 @@
+﻿@model VehicleAccounting.Models.Application
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Подробнее</h1>
+
+<div>
+    <h4>Заявка</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.uploadDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.uploadDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.unloadingDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.unloadingDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.applicationNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.applicationNumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.routeId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(modelItem => modelItem.Route.departurePoint)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.transportId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(modelItem => modelItem.Transport.driverFIO)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.treatyId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(modelItem => modelItem.Treaty.currency)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.customerId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(modelItem => modelItem.Customer.customerName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.orderExecutorId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(modelItem => modelItem.OrderExecutor.orderExecutorName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Редактировать</a> |
+    <a asp-action="Index">На главную</a>
+</div>

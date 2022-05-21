@@ -1,0 +1,65 @@
+﻿@model VehicleAccounting.ViewModels.RouteViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Маршрут</h1>
+
+<p>
+    <a asp-action="Create">Добавить новую запись</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Route.departurePoint)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Route.arrivalPoint)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Route.stoppingPoint)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Routes) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.departurePoint)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.arrivalPoint)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.stoppingPoint)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Подробнее</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       class="btn btn-outline-dark">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       class="btn btn-outline-dark">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}

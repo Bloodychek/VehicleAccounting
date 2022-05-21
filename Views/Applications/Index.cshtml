@@ -1,0 +1,97 @@
+﻿@model VehicleAccounting.ViewModels.ApplicationViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Заявка</h1>
+
+<p>
+    <a asp-action="Create">Добавить новую запись</a>
+</p>
+
+<a asp-action="Report">Создать отчет</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Application.uploadDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Application.unloadingDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Application.applicationNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Application.routeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Application.transportId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Application.treatyId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Application.customerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Application.orderExecutorId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Applications) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.uploadDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.unloadingDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.applicationNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Route.departurePoint)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Transport.driverFIO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Treaty.currency)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.customerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderExecutor.orderExecutorName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Подробнее</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       class="btn btn-outline-dark">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       class="btn btn-outline-dark">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}

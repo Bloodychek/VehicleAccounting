@@ -1,0 +1,36 @@
+﻿@model VehicleAccounting.Models.Route
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Подробнее</h1>
+
+<div>
+    <h4>Маршрут</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.departurePoint)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.departurePoint)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.arrivalPoint)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.arrivalPoint)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.stoppingPoint)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.stoppingPoint)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Редактировать</a> |
+    <a asp-action="Index">На главную</a>
+</div>
