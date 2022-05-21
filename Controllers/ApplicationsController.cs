@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -22,19 +23,17 @@ namespace VehicleAccounting.Controllers
         private readonly IRepository<OrderExecutor> orderExecutorsRepository;
         private readonly IRepository<Route> routeRepository;
         private readonly IRepository<Transport> transportRepository;
-        private readonly IRepository<Treaty> treatyRepository;
         private readonly MainContext _context;
         private readonly ReportApplication reportApplication = new ReportApplication();
 
         public ApplicationsController(MainContext context, IRepository<Application> applicationRepository, IRepository<Customer> customerRepository,
-            IRepository<OrderExecutor> orderExecutorsRepository, IRepository<Route> routeRepository, IRepository<Transport> transportRepository, IRepository<Treaty> treatyRepository)
+            IRepository<OrderExecutor> orderExecutorsRepository, IRepository<Route> routeRepository, IRepository<Transport> transportRepository)
         {
             this.applicationRepository = applicationRepository;
             this.customerRepository = customerRepository;
             this.orderExecutorsRepository = orderExecutorsRepository;
             this.routeRepository = routeRepository;
             this.transportRepository = transportRepository;
-            this.treatyRepository = treatyRepository;
             _context = context;
         }
 
@@ -44,7 +43,7 @@ namespace VehicleAccounting.Controllers
             int pageSize = 12;   // количество элементов на странице
 
             IQueryable<Application> source = applicationRepository.GetAll(k => k.Customer, q => q.OrderExecutor,
-                w => w.Route, e => e.Transport, r => r.Treaty).AsNoTracking();
+                w => w.Route, e => e.Transport).AsNoTracking();
             var count = await source.CountAsync();
             var items = await source.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
@@ -66,7 +65,7 @@ namespace VehicleAccounting.Controllers
             }
 
             Application newApplication = applicationRepository.GetAll(k => k.Customer, q => q.OrderExecutor,
-                w => w.Route, e => e.Transport, r => r.Treaty).FirstOrDefault(n => n.Id == id.Value);
+                w => w.Route, e => e.Transport).FirstOrDefault(n => n.Id == id.Value);
             if (newApplication == null)
             {
                 return NotFound();
@@ -82,7 +81,6 @@ namespace VehicleAccounting.Controllers
             ViewData["OrderExecutors"] = new SelectList(orderExecutorsRepository.GetAll().ToList(), "Id", "orderExecutorName");
             ViewData["Routes"] = new SelectList(routeRepository.GetAll().ToList(), "Id", "departurePoint");
             ViewData["Transports"] = new SelectList(transportRepository.GetAll().ToList(), "Id", "driverFIO");
-            ViewData["Treaties"] = new SelectList(treatyRepository.GetAll().ToList(), "Id", "currency");
             return View();
         }
 
@@ -91,7 +89,7 @@ namespace VehicleAccounting.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,uploadDate,unloadingDate,applicationNumber,routeId,transportId,treatyId,customerId,orderExecutorId")] ApplicationsCreateAndAnyViewModel applications)
+        public async Task<IActionResult> Create([Bind("Id,uploadDate,unloadingDate,paymentDayTime,currency,applicationNumber,routeId,transportId,customerId,orderExecutorId")] ApplicationsCreateAndAnyViewModel applications)
         {
             if (ModelState.IsValid)
             {
@@ -100,10 +98,11 @@ namespace VehicleAccounting.Controllers
                     {
                         uploadDate = applications.uploadDate,
                         unloadingDate = applications.unloadingDate,
+                        paymentDayTime = applications.paymentDayTime,
+                        currency = applications.currency,
                         applicationNumber = applications.applicationNumber,
                         routeId = applications.routeId,
                         transportId = applications.transportId,
-                        treatyId = applications.treatyId,
                         customerId = applications.customerId,
                         orderExecutorId = applications.orderExecutorId
                     };
@@ -121,7 +120,6 @@ namespace VehicleAccounting.Controllers
             ViewData["OrderExecutors"] = new SelectList(orderExecutorsRepository.GetAll().ToList(), "Id", "orderExecutorName");
             ViewData["Routes"] = new SelectList(routeRepository.GetAll().ToList(), "Id", "departurePoint");
             ViewData["Transports"] = new SelectList(transportRepository.GetAll().ToList(), "Id", "driverFIO");
-            ViewData["Treaties"] = new SelectList(treatyRepository.GetAll().ToList(), "Id", "currency");
             return View(applications);
         }
 
@@ -132,14 +130,13 @@ namespace VehicleAccounting.Controllers
             ViewData["OrderExecutors"] = new SelectList(orderExecutorsRepository.GetAll().ToList(), "Id", "orderExecutorName");
             ViewData["Routes"] = new SelectList(routeRepository.GetAll().ToList(), "Id", "departurePoint");
             ViewData["Transports"] = new SelectList(transportRepository.GetAll().ToList(), "Id", "driverFIO");
-            ViewData["Treaties"] = new SelectList(treatyRepository.GetAll().ToList(), "Id", "currency");
             if (id == null)
             {
                 return NotFound();
             }
 
             var applications = await applicationRepository.GetAll(k => k.Customer, q => q.OrderExecutor,
-                w => w.Route, e => e.Transport, r => r.Treaty).FirstOrDefaultAsync(n => n.Id == id.Value);
+                w => w.Route, e => e.Transport).FirstOrDefaultAsync(n => n.Id == id.Value);
             if (applications == null)
             {
                 return NotFound();
@@ -149,10 +146,11 @@ namespace VehicleAccounting.Controllers
                 Id = applications.Id,
                 uploadDate = applications.uploadDate,
                 unloadingDate = applications.unloadingDate,
+                paymentDayTime = applications.paymentDayTime,
+                currency = applications.currency,
                 applicationNumber = applications.applicationNumber,
                 routeId = applications.routeId.Value,
                 transportId = applications.transportId.Value,
-                treatyId = applications.treatyId.Value,
                 customerId = applications.customerId.Value,
                 orderExecutorId = applications.orderExecutorId.Value
             });
@@ -163,7 +161,7 @@ namespace VehicleAccounting.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,uploadDate,unloadingDate,applicationNumber,routeId,transportId,treatyId,customerId,orderExecutorId")] ApplicationsEditAndAnyViewModel applicationsEditView)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,uploadDate,unloadingDate,paymentDayTime,currency,applicationNumber,routeId,transportId,customerId,orderExecutorId")] ApplicationsEditAndAnyViewModel applicationsEditView)
         {
             if (id != applicationsEditView.Id)
             {
@@ -175,10 +173,11 @@ namespace VehicleAccounting.Controllers
                 Id = applicationsEditView.Id,
                 uploadDate = applicationsEditView.uploadDate,
                 unloadingDate = applicationsEditView.unloadingDate,
+                paymentDayTime = applicationsEditView.paymentDayTime,
+                currency = applicationsEditView.currency,
                 applicationNumber = applicationsEditView.applicationNumber,
                 routeId = applicationsEditView.routeId,
                 transportId = applicationsEditView.transportId,
-                treatyId = applicationsEditView.treatyId,
                 customerId = applicationsEditView.customerId,
                 orderExecutorId = applicationsEditView.orderExecutorId
             };
@@ -212,7 +211,6 @@ namespace VehicleAccounting.Controllers
             ViewData["OrderExecutors"] = new SelectList(orderExecutorsRepository.GetAll().ToList(), "Id", "orderExecutorName");
             ViewData["Routes"] = new SelectList(routeRepository.GetAll().ToList(), "Id", "departurePoint");
             ViewData["Transports"] = new SelectList(transportRepository.GetAll().ToList(), "Id", "driverFIO");
-            ViewData["Treaties"] = new SelectList(treatyRepository.GetAll().ToList(), "Id", "currency");
             return View(applicationsEditView);
         }
 
@@ -224,7 +222,7 @@ namespace VehicleAccounting.Controllers
                 return NotFound();
             }
             Application source = await applicationRepository.GetAll(k => k.Customer, q => q.OrderExecutor,
-                w => w.Route, e => e.Transport, r => r.Treaty).FirstOrDefaultAsync(n => n.Id == id.Value);
+                w => w.Route, e => e.Transport).FirstOrDefaultAsync(n => n.Id == id.Value);
             if (source == null)
             {
                 return NotFound();
@@ -244,11 +242,12 @@ namespace VehicleAccounting.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Главный бухгалтер")]
         public async Task<ActionResult> Report()
         {
             const string fileName = "applications.xlsx";
             var bytes = reportApplication.Report(applicationRepository.GetAll(k => k.Customer, q => q.OrderExecutor,
-                w => w.Route, e => e.Transport, r => r.Treaty).AsNoTracking());
+                w => w.Route, e => e.Transport).AsNoTracking());
             return File(bytes, "application/force-download", fileName);
         }
 

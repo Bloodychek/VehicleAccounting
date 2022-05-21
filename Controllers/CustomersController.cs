@@ -70,7 +70,7 @@ namespace VehicleAccounting.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,customerName,customerPhone")] Customer customer)
+        public async Task<IActionResult> Create([Bind("Id,customerName,customerPhone,customerFeedback")] Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -102,7 +102,7 @@ namespace VehicleAccounting.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,customerName,customerPhone")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,customerName,customerPhone, customerFeedback")] Customer customer)
         {
             if (id != customer.Id)
             {

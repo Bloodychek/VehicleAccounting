@@ -12,6 +12,15 @@ namespace VehicleAccounting.ViewModels
         [Display(Name = "Дата выгрузки")]
         public DateTime unloadingDate { get; set; }
 
+        [Required(ErrorMessage = "Поле должно содержать хотя бы 1 символ")]
+        [Range(1, int.MaxValue)]
+        [Display(Name = "Дней на колличество оплаты")]
+        public int paymentDayTime { get; set; }
+
+        [StringLength(15, MinimumLength = 2, ErrorMessage = "Длина поля 'Цена' должно содержать от 2 до 15 символов")]
+        [Display(Name = "Цена")]
+        public string currency { get; set; }
+
         [Required(ErrorMessage = "Поле должно быть заполнено")]
         [Display(Name = "Номер заявки")]
         public int applicationNumber { get; set; }

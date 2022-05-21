@@ -14,6 +14,10 @@ namespace VehicleAccounting.Models
         [Display(Name = "Телефон заказчика")]
         public string customerPhone { get; set; }
 
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Длина поля 'Обратная связь' должно содержать от 3 до 50 символов")]
+        [Display(Name = "Обратная связь")]
+        public string customerFeedback { get; set; }
+
         ICollection<Application> applications { get; set; }
     }
 }

@@ -20,7 +20,6 @@ builder.Services.AddTransient<IRepository<Goods>, GoodsRepository>();
 builder.Services.AddTransient<IRepository<OrderExecutor>, OrderExecutorRepository>();
 builder.Services.AddTransient<IRepository<VehicleAccounting.Models.Route>, RouteRepository>();
 builder.Services.AddTransient<IRepository<Transport>, TransportRepository>();
-builder.Services.AddTransient<IRepository<Treaty>, TreatyRepository>();
 builder.Services.AddTransient<IRepository<TypeOfGoods>, TypeOfGoodsRepository>();
 builder.Services.AddDefaultIdentity<IdentityUser>()
                 .AddRoles<IdentityRole>()

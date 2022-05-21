@@ -24,6 +24,11 @@
                 <span asp-validation-for="orderExecutorPhone" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="orderExecutorFeedback" class="control-label"></label>
+                <input asp-for="orderExecutorFeedback" class="form-control" />
+                <span asp-validation-for="orderExecutorFeedback" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Сохранить" class="btn btn-primary" />
             </div>
         </form>

@@ -24,6 +24,11 @@
                 <span asp-validation-for="customerPhone" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="customerFeedback" class="control-label"></label>
+                <input asp-for="customerFeedback" class="form-control" />
+                <span asp-validation-for="customerFeedback" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Сохранить" class="btn btn-primary" />
             </div>
         </form>

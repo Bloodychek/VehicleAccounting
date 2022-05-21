@@ -18,6 +18,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Customer.customerPhone)
             </th>
+             <th>
+                @Html.DisplayNameFor(model => model.Customer.customerFeedback)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -29,6 +32,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.customerPhone)
+            </td>
+             <td>
+                @Html.DisplayFor(modelItem => item.customerFeedback)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |

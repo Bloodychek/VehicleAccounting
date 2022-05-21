@@ -14,7 +14,16 @@ namespace VehicleAccounting.Models
         [Required(ErrorMessage = "Поле должно быть заполнено")]
         [Display(Name = "Дата выгрузки")]
         public DateTime unloadingDate { get; set; }
-        
+
+        [Required(ErrorMessage = "Поле должно содержать хотя бы 1 символ")]
+        [Range(1, int.MaxValue)]
+        [Display(Name = "Дней на колличество оплаты")]
+        public int paymentDayTime { get; set; }
+
+        [StringLength(15, MinimumLength = 2, ErrorMessage = "Длина поля 'Цена' должно содержать от 2 до 15 символов")]
+        [Display(Name = "Цена")]
+        public string currency { get; set; }
+
         [Required(ErrorMessage = "Поле должно содержать хотя бы 1 символ")]
         [Range(1, int.MaxValue)]
         [Display(Name = "Номер заявки")]
@@ -26,10 +35,6 @@ namespace VehicleAccounting.Models
         [Required(ErrorMessage = "Поле должно быть заполнено")]
         [Display(Name = "ФИО водителя")]
         public int? transportId { get; set; }
-
-        [Required(ErrorMessage = "Поле должно быть заполнено")]
-        [Display(Name = "Цена")]
-        public int? treatyId { get; set; }
 
         [Required(ErrorMessage = "Поле должно быть заполнено")]
         [Display(Name = "Название заказчика")]
@@ -44,7 +49,6 @@ namespace VehicleAccounting.Models
         public OrderExecutor OrderExecutor { get; set; }
         public Models.Route Route { get; set; }
         public Transport Transport { get; set; }
-        public Treaty Treaty { get; set; }
 
     }
 }
