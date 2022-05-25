@@ -77,14 +77,15 @@ namespace VehicleAccounting.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("applicationId,typeOfGoodsId")] GoodsCreateViewModel goods)
+        public async Task<IActionResult> Create([Bind("applicationId,typeOfGoodsId,countOfGoods")] GoodsCreateViewModel goods)
         {
             if (ModelState.IsValid)
             {
                 var newGoods = new Goods
                 {
                     applicationId = goods.applicationId,
-                    typeOfGoodsId = goods.typeOfGoodsId
+                    typeOfGoodsId = goods.typeOfGoodsId,
+                    countOfGoods = goods.countOfGoods
                 };
                 await goodsRepository.Create(newGoods);
                 await goodsRepository.Save();
@@ -112,7 +113,8 @@ namespace VehicleAccounting.Controllers
             {
                 Id = goods.Id,
                 applicationId = goods.applicationId,
-                typeOfGoodsId = goods.typeOfGoodsId
+                typeOfGoodsId = goods.typeOfGoodsId,
+                countOfGoods = goods.countOfGoods
             });
         }
 
@@ -121,7 +123,7 @@ namespace VehicleAccounting.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,applicationId,typeOfGoodsId")] GoodsEditViewModel goodsEditView)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,applicationId,typeOfGoodsId,countOfGoods")] GoodsEditViewModel goodsEditView)
         {
             if (id != goodsEditView.Id)
             {
@@ -132,7 +134,8 @@ namespace VehicleAccounting.Controllers
             {
                 Id = goodsEditView.Id,
                 applicationId = goodsEditView.applicationId,
-                typeOfGoodsId = goodsEditView.typeOfGoodsId
+                typeOfGoodsId = goodsEditView.typeOfGoodsId,
+                countOfGoods = goodsEditView.countOfGoods
             };
 
             if (ModelState.IsValid)

@@ -10,10 +10,6 @@ namespace VehicleAccounting.Models
         [Display(Name = "Название товара")]
         public string nameOfGoods { get; set; }
 
-        [Required(ErrorMessage = "Поле должно быть заполнено")]
-        [Display(Name = "Количество товаров")]
-        public int countOfGoods { get; set; }
-
         [StringLength(25, MinimumLength = 3, ErrorMessage = "Длина поля 'Единица измерения' должно содержать от 3 до 25 символов")]
         [Display(Name = "Единица измерения")]
         public string unit { get; set; }

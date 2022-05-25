@@ -17,7 +17,7 @@ namespace VehicleAccounting.Models
 
         [Required(ErrorMessage = "Поле должно содержать хотя бы 1 символ")]
         [Range(1, int.MaxValue)]
-        [Display(Name = "Дней на колличество оплаты")]
+        [Display(Name = "Дней на количество оплаты")]
         public int paymentDayTime { get; set; }
 
         [StringLength(15, MinimumLength = 2, ErrorMessage = "Длина поля 'Цена' должно содержать от 2 до 15 символов")]

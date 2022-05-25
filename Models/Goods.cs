@@ -14,6 +14,10 @@ namespace VehicleAccounting.Models
         [Display(Name = "Продукция")]
         public int typeOfGoodsId { get; set; }
 
+        [Required(ErrorMessage = "Поле должно быть заполнено")]
+        [Display(Name = "Количество товаров")]
+        public int countOfGoods { get; set; }
+
         public TypeOfGoods TypeOfGood { get; set; }
         public Application Application { get; set; }
     }

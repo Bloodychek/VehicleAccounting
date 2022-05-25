@@ -70,7 +70,7 @@ namespace VehicleAccounting.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,nameOfGoods,countOfGoods,unit")] TypeOfGoods typeOfGoods)
+        public async Task<IActionResult> Create([Bind("Id,nameOfGoods,unit")] TypeOfGoods typeOfGoods)
         {
             if (ModelState.IsValid)
             {
@@ -102,7 +102,7 @@ namespace VehicleAccounting.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,nameOfGoods,countOfGoods,unit")] TypeOfGoods typeOfGoods)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,nameOfGoods,unit")] TypeOfGoods typeOfGoods)
         {
             if (id != typeOfGoods.Id)
             {
