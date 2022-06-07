@@ -6,7 +6,7 @@ namespace VehicleAccounting.Reports
     public class ReportApplication
     {
         /// <summary>
-        /// Метод который экспортирует таблицу в excel
+        /// Метод который формирует отчеты
         /// </summary>
         /// <param name="report">Объект класса Application</param>
         /// <returns></returns>

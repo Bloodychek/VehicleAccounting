@@ -1,4 +1,5 @@
 ﻿@model VehicleAccounting.ViewModels.ApplicationViewModel
+@using VehicleAccounting.ViewModels
 
 @{
     ViewData["Title"] = "Index";
@@ -7,10 +8,18 @@
 <h1>Заявка</h1>
 
 <p>
+    @using (Html.BeginForm("Report", "Applications", FormMethod.Get))
+    {
+        <p><label>Дата загрузки</label>
+            <input name = "uploadDate" type="datetime-local" data-val- /></p>
+        <p><label>Дата выгрузки</label>
+            <input name = "unloadingDate" type="datetime-local"  data-val- /></p>
+        <input class = "btn btn-outline-dark" type="submit" value="Сформировать отчет"/>
+    }
+    <p></p>
     <a asp-action="Create">Добавить новую запись</a>
 </p>
 
-<a asp-action="Report">Экспортировать таблицу в excel</a>
 <table class="table">
     <thead>
         <tr>

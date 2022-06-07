@@ -283,11 +283,13 @@ namespace VehicleAccounting.Controllers
         /// </summary>
         /// <returns></returns>
         [Authorize(Roles = "Главный бухгалтер")]
-        public async Task<ActionResult> Report()
+        public async Task<ActionResult> Report(ApplicationReportViewModel applicationReportViewModel)
         {
+            DateValidationForReport(applicationReportViewModel);
+            var newDate = applicationRepository.GetAll(k => k.Customer, q => q.OrderExecutor,
+                w => w.Route, e => e.Transport).AsNoTracking().Where(x => x.uploadDate >= applicationReportViewModel.uploadDate && x.unloadingDate <= applicationReportViewModel.unloadingDate);
             const string fileName = "applications.xlsx";
-            var bytes = reportApplication.Report(applicationRepository.GetAll(k => k.Customer, q => q.OrderExecutor,
-                w => w.Route, e => e.Transport).AsNoTracking());
+            var bytes = reportApplication.Report(newDate);
             return File(bytes, "application/force-download", fileName);
         }
 
@@ -300,10 +302,18 @@ namespace VehicleAccounting.Controllers
         {
                 if (application.uploadDate > application.unloadingDate)
                 {
-                    throw new ApplicationException("Дата выгрузки не может быть произведена раньше чем дата загрузки или совпадать");
+                    throw new ApplicationException("Дата выгрузки не может быть произведена раньше чем дата загрузки");
                 }            
         }
-        
+
+        public void DateValidationForReport(ApplicationReportViewModel applicationReportViewModel)
+        {
+            if (applicationReportViewModel.uploadDate == default || applicationReportViewModel.unloadingDate == default || applicationReportViewModel.uploadDate > applicationReportViewModel.unloadingDate)
+            {
+                throw new ApplicationException("Дата выгрузки не может быть произведена раньше чем дата загрузки");
+            }
+        }
+
         /// <summary>
         /// Метод для проверки наличия записи
         /// </summary>

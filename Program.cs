@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using VehicleAccounting;
 using VehicleAccounting.Data;
+using VehicleAccounting.Filters;
 using VehicleAccounting.Models;
 using VehicleAccounting.Repositories;
 
@@ -24,7 +25,7 @@ builder.Services.AddTransient<IRepository<TypeOfGoods>, TypeOfGoodsRepository>()
 builder.Services.AddDefaultIdentity<IdentityUser>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(config => config.Filters.Add(typeof(FilterExceptions)));
 
 var buildServices = builder.Services.BuildServiceProvider();
 var service = buildServices.GetService<UserManager<IdentityUser>>();

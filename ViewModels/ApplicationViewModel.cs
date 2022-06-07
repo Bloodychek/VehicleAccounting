@@ -10,5 +10,6 @@ namespace VehicleAccounting.ViewModels
         [StringLength(50, MinimumLength = 0)]
         public string ApplicationName { get; set; }
         public Application Application { get; set; }
+        public ApplicationReportViewModel ApplicationReport { get; set; }
     }
 }
