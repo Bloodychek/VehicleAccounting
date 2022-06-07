@@ -4,6 +4,9 @@ namespace VehicleAccounting.Models
 {
     public class Customer : IBaseObject
     {
+        /// <summary>
+        /// Класс, реализующий сущность "Заказчик"
+        /// </summary>
         public int Id { get; set; }
 
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Длина поля 'Названия заказчика' должно содержать от 3 до 50 символов")]

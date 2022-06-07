@@ -64,7 +64,7 @@ namespace VehicleAccounting.Controllers
             if (ModelState.IsValid)
             {
                 IdentityUser user = await userManager.FindByIdAsync(model.Id);
-                if (user == null)
+                if (user != null)
                 {
                     user.Email = model.Email;
                     user.UserName = model.Email;

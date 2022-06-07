@@ -4,6 +4,9 @@ namespace VehicleAccounting.Models
 {
     public class Route : IBaseObject
     {
+        /// <summary>
+        /// Класс, реализующий сущность "Маршрут"
+        /// </summary>
         public int Id { get; set; }
 
         [StringLength(40, MinimumLength = 3, ErrorMessage = "Длина поля 'Точка отправления' должно содержать от 3 до 200 символов")]

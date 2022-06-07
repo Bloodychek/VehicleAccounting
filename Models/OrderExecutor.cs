@@ -4,6 +4,9 @@ namespace VehicleAccounting.Models
 {
     public class OrderExecutor : IBaseObject
     {
+        /// <summary>
+        /// Класс, реализующий сущность "Исполнители заказа"
+        /// </summary>
         public int Id { get; set; }
 
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Длина поля 'Название исполнителя' должно содержать от 3 до 50 символов")]

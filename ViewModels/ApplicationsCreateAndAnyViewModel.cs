@@ -22,6 +22,7 @@ namespace VehicleAccounting.ViewModels
         public string currency { get; set; }
 
         [Required(ErrorMessage = "Поле должно быть заполнено")]
+        [Range(1, int.MaxValue)]
         [Display(Name = "Номер заявки")]
         public int applicationNumber { get; set; }
 

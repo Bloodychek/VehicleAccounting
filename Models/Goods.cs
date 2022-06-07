@@ -4,6 +4,9 @@ namespace VehicleAccounting.Models
 {
     public class Goods : IBaseObject
     {
+        /// <summary>
+        /// Класс, реализующий сущность "Продукция в заявках"
+        /// </summary>
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Поле должно быть заполнено")]

@@ -5,6 +5,9 @@ namespace VehicleAccounting.Models
 {
     public class Application : IBaseObject
     {
+        /// <summary>
+        /// Класс, реализующий сущность "Заявка"
+        /// </summary>
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Поле должно быть заполнено")]

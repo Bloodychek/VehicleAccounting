@@ -4,6 +4,9 @@ namespace VehicleAccounting.Models
 {
     public class Transport : IBaseObject
     {
+        /// <summary>
+        /// Класс, реализующий сущность "Транспорт"
+        /// </summary>
         public int Id { get; set; }
 
         [StringLength(40, MinimumLength = 3, ErrorMessage = "Длина поля 'Тягач' должно содержать от 3 до 40 символов")]
@@ -14,7 +17,7 @@ namespace VehicleAccounting.Models
         [Display(Name = "Марка тягача")]
         public string tractorBrand { get; set; }
 
-        [StringLength(40, MinimumLength = 3, ErrorMessage = "Длина поля 'Прицеп' должно содержать от 3 до 40 символов")]
+        [StringLength(40, MinimumLength = 3, ErrorMessage = "Длина поля 'Полуприцеп' должно содержать от 3 до 40 символов")]
         [Display(Name = "Полуприцеп")]
         public string semitrailer { get; set; }
 

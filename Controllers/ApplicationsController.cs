@@ -37,6 +37,11 @@ namespace VehicleAccounting.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Метод Index для таблицы Application
+        /// </summary>
+        /// <param name="page">Объект, используемый для пагинации</param>
+        /// <returns></returns>
         // GET: Applications
         public async Task<IActionResult> Index(int page = 1)
         {
@@ -56,6 +61,11 @@ namespace VehicleAccounting.Controllers
             return View(viewModel);
         }
 
+        /// <summary>
+        /// Метод для подробной информации в таблице Application
+        /// </summary>
+        /// <param name="id">Ид</param>
+        /// <returns></returns>
         // GET: Applications/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -74,6 +84,10 @@ namespace VehicleAccounting.Controllers
             return View(newApplication);
         }
 
+        /// <summary>
+        /// Get метод для создания записи
+        /// </summary>
+        /// <returns></returns>
         // GET: Applications/Create
         public IActionResult Create()
         {
@@ -84,9 +98,12 @@ namespace VehicleAccounting.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Post метод для создания записи
+        /// </summary>
+        /// <param name="applications">Объект класса ApplicationsCreateAndAnyViewModel</param>
+        /// <returns></returns>
         // POST: Applications/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,uploadDate,unloadingDate,paymentDayTime,currency,applicationNumber,routeId,transportId,customerId,orderExecutorId")] ApplicationsCreateAndAnyViewModel applications)
@@ -123,6 +140,11 @@ namespace VehicleAccounting.Controllers
             return View(applications);
         }
 
+        /// <summary>
+        /// Get метод для редактирования
+        /// </summary>
+        /// <param name="id">Ид</param>
+        /// <returns></returns>
         // GET: Applications/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -156,9 +178,13 @@ namespace VehicleAccounting.Controllers
             });
         }
 
+        /// <summary>
+        /// Post метод для редактирования
+        /// </summary>
+        /// <param name="id">Ид</param>
+        /// <param name="applicationsEditView">Объект класса ApplicationsEditAndAnyViewModel</param>
+        /// <returns></returns>
         // POST: Applications/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,uploadDate,unloadingDate,paymentDayTime,currency,applicationNumber,routeId,transportId,customerId,orderExecutorId")] ApplicationsEditAndAnyViewModel applicationsEditView)
@@ -214,6 +240,11 @@ namespace VehicleAccounting.Controllers
             return View(applicationsEditView);
         }
 
+        /// <summary>
+        /// Get метод для удаления
+        /// </summary>
+        /// <param name="id">Ид</param>
+        /// <returns></returns>
         // GET: Applications/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -231,6 +262,11 @@ namespace VehicleAccounting.Controllers
             return View(source);
         }
 
+        /// <summary>
+        /// Post метод для удаления
+        /// </summary>
+        /// <param name="id">Ид</param>
+        /// <returns></returns>
         // POST: Applications/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -242,6 +278,10 @@ namespace VehicleAccounting.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        /// <summary>
+        /// Метод для создания отчетов
+        /// </summary>
+        /// <returns></returns>
         [Authorize(Roles = "Главный бухгалтер")]
         public async Task<ActionResult> Report()
         {
@@ -251,14 +291,24 @@ namespace VehicleAccounting.Controllers
             return File(bytes, "application/force-download", fileName);
         }
 
+        /// <summary>
+        /// Метод для проверки даты в таблице
+        /// </summary>
+        /// <param name="application">Объект класса Application</param>
+        /// <exception cref="ApplicationException"> Класс для вывода обрабатываемой ошибки</exception>
         public void DateValidation(Application application)
         {
                 if (application.uploadDate > application.unloadingDate)
                 {
-                    throw new ApplicationException("Дата загрузки не может совпадать или быть такой же как дата выгрузки");
+                    throw new ApplicationException("Дата выгрузки не может быть произведена раньше чем дата загрузки или совпадать");
                 }            
         }
-
+        
+        /// <summary>
+        /// Метод для проверки наличия записи
+        /// </summary>
+        /// <param name="id">Ид</param>
+        /// <returns></returns>
         private bool ApplicationExists(int id)
         {
             return applicationRepository.GetAll().Any(e => e.Id == id);

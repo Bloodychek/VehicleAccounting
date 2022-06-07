@@ -5,6 +5,11 @@ namespace VehicleAccounting.Reports
 {
     public class ReportApplication
     {
+        /// <summary>
+        /// Метод который экспортирует таблицу в excel
+        /// </summary>
+        /// <param name="report">Объект класса Application</param>
+        /// <returns></returns>
         public byte [] Report(IEnumerable<Application> report)
         {
             return report.ToExcel(schema => schema
