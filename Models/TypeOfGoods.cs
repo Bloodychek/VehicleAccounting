@@ -13,7 +13,7 @@ namespace VehicleAccounting.Models
         [Display(Name = "Название продукции")]
         public string nameOfGoods { get; set; }
 
-        [StringLength(25, MinimumLength = 3, ErrorMessage = "Длина поля 'Единица измерения' должно содержать от 3 до 25 символов")]
+        [StringLength(25, MinimumLength = 2, ErrorMessage = "Длина поля 'Единица измерения' должно содержать от 2 до 25 символов")]
         [Display(Name = "Единица измерения")]
         public string unit { get; set; }
         ICollection<Goods> _goods { get; set; }

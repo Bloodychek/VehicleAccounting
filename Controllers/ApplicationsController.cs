@@ -306,6 +306,11 @@ namespace VehicleAccounting.Controllers
                 }            
         }
 
+        /// <summary>
+        /// Метод для проверки даты при создании отчетов
+        /// </summary>
+        /// <param name="applicationReportViewModel"></param>
+        /// <exception cref="ApplicationException"></exception>
         public void DateValidationForReport(ApplicationReportViewModel applicationReportViewModel)
         {
             if (applicationReportViewModel.uploadDate == default || applicationReportViewModel.unloadingDate == default || applicationReportViewModel.uploadDate > applicationReportViewModel.unloadingDate)

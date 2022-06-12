@@ -7,7 +7,7 @@
 <h1>Подробнее</h1>
 
 <div>
-    <h4>Товары</h4>
+    <h4>Продукция в заявках</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -27,6 +27,12 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.countOfGoods)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.productPrice)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.productPrice)
         </dd>
     </dl>
 </div>
